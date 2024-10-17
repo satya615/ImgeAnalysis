@@ -1,8 +1,8 @@
-  {
+{
     "version": 2,
     "builds": [
       {
-        "src": "emotion_recognition/wsgi.p",
+        "src": "emotion_recognition/wsgi.py",
         "use": "@vercel/python",
         "config": {
           "maxLambdaSize": 15,
@@ -24,7 +24,8 @@
       },
       {
         "src": "/(.*)",
-        "dest": "emotion_recognition/wsgi.p"
+        "dest": "emotion_recognition/wsgi.py"
       }
     ]
   }
+  
