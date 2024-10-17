@@ -22,10 +22,14 @@
         "src": "/static/(.*)",
         "dest": "/static/$1"
       },
+      
       {
         "src": "/(.*)",
         "dest": "emotion_recognition/wsgi.py"
       }
-    ]
+    ],
+    "env": {
+        "PYTHON_VERSION": "3.10"
+      }
   }
   
