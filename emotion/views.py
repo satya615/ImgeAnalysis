@@ -40,4 +40,4 @@ def analyze_emotion(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 def show_home(request):
-    return HttpResponse(request, 'home.html')
+    return HttpResponse(request, 'index.html')
