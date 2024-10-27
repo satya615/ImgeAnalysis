@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from deepface import DeepFace
 import numpy as np
@@ -40,4 +41,4 @@ def analyze_emotion(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 def show_home(request):
-    return HttpResponse(request, 'index.html')
+    return render(request, 'index.html')
