@@ -5,6 +5,7 @@ from deepface import DeepFace
 import numpy as np
 from PIL import Image
 import io
+import gc
 
 @csrf_exempt
 def analyze_emotion(request):
@@ -18,10 +19,10 @@ def analyze_emotion(request):
             img = img.convert('RGB')  # Ensure the image is in RGB format
 
             # Convert the PIL image to a NumPy array for processing
-            img = np.array(img)
+            img_array = np.array(img)
 
             # Analyze the image using DeepFace to detect emotions
-            analysis = DeepFace.analyze(img, actions=['emotion'], enforce_detection=False)
+            analysis = DeepFace.analyze(img_array, actions=['emotion'], enforce_detection=False)
 
             # DeepFace returns a list of results, even for one face, so access the first result
             if isinstance(analysis, list):
@@ -38,7 +39,20 @@ def analyze_emotion(request):
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
-    
+
+        finally:
+            # Clean up memory
+            if 'img' in locals():
+                del img
+            if 'img_array' in locals():
+                del img_array
+            if 'analysis' in locals():
+                del analysis
+            
+            # Invoke garbage collection
+            gc.collect()
+
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
 def show_home(request):
     return render(request, 'index.html')
